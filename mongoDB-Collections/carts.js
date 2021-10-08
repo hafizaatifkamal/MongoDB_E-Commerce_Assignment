@@ -29,14 +29,19 @@ async function main() {
     console.log(insertCartsData.insertedCount + " Carts record(s) inserted successfully!");
 
 
+
+
     /* Getting/filterings inserted Carts data */
     const getCartsData = await db.collection("Carts").find().toArray();
 
     // Printing Carts Data
     console.log(getCartsData);
 
+
+
+
     /* Updation */
-    // Passing updates to into specific Carts data
+    // Passing updates into specific Carts data
     let cartsQuery = { Product: "AirPods" };
 
     const updateCartsQuery = {
@@ -49,6 +54,10 @@ async function main() {
     // Updating Carts data
     const updateCarts = await db.collection("Carts").updateMany(cartsQuery, updateCartsQuery);
     console.log(updateCarts.modifiedCount + " Carts record(s) updated successfully!");
+
+
+
+
 
 
     /* Deletion */
