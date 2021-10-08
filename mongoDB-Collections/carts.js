@@ -23,10 +23,39 @@ async function main() {
 
     const db = client.db(dbName);
 
-    // Insertion of Carts data into carts collection
+    /* Insertion of Carts data into carts collection */
     const insertCartsData = await db.collection("Carts").insertMany(cartsData);
 
     console.log(insertCartsData.insertedCount + " Carts record(s) inserted successfully!");
+
+
+    /* Getting/filterings inserted Carts data */
+    const getCartsData = await db.collection("Carts").find().toArray();
+
+    // Printing Carts Data
+    console.log(getCartsData);
+
+    /* Updation */
+    // Passing updates to into specific Carts data
+    let cartsQuery = { Product: "AirPods" };
+
+    const updateCartsQuery = {
+        $set: {
+            Product_qty: 10,
+            Total_Price: 15990
+        }
+    };
+
+    // Updating Carts data
+    const updateCarts = await db.collection("Carts").updateMany(cartsQuery, updateCartsQuery);
+    console.log(updateCarts.modifiedCount + " Carts record(s) updated successfully!");
+
+
+    /* Deletion */
+    let cartsQuery = { User: "Nishad" };
+
+    const deleteCart = await db.collection("Carts").deleteMany(cartsQuery);
+    console.log(deleteCart.deletedCount + " record(s) has been deleted!");
 }
 
 main()

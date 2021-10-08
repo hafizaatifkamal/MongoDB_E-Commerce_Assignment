@@ -27,6 +27,41 @@ async function main() {
     const insertUsersData = await db.collection("Users").insertMany(usersData);
 
     console.log(insertUsersData.insertedCount + " Users record(s) inserted successfully!");
+
+
+
+    /* Getting / filterings inserted Users data */
+    const getUsersData = await db.collection("Users").find().toArray();
+
+    // Printing Users Data
+    console.log(getUsersData);
+
+
+
+    /* Updation */
+    // Passing updates into specific Users data
+    let usersQuery = { first_name: "Yadu" };
+
+    const updateUsersQuery = {
+        $set: {
+            first_name: "Yedu",
+            last_name: "Krishnan",
+            role: "Software Developer"
+        }
+    };
+
+    // Updating Users data
+    const updateUsers = await db.collection("Users").updateMany(usersQuery, updateUsersQuery);
+    console.log(updateUsers.modifiedCount + " Users record(s) updated successfully!");
+
+
+
+
+    /* Deletion */
+    let usersQuery = { email: "saad.h@valuebound.com" };
+
+    const deleteUser = await db.collection("Users").deleteMany(usersQuery);
+    console.log(deleteUser.deletedCount + " record(s) has been deleted!");
 }
 
 main()
