@@ -27,6 +27,43 @@ async function main() {
     const insertRolesData = await db.collection("Roles").insertMany(rolesData);
 
     console.log(insertRolesData.insertedCount + " Roles record(s) inserted successfully!");
+
+
+
+
+    /* Getting/filterings inserted Roles data */
+    const getRolesData = await db.collection("Roles").find().toArray();
+
+    // Printing Roles Data
+    console.log(getRolesData);
+
+
+
+
+    /* Updation */
+    // Passing updates into specific Roles data
+    let rolesQuery = { Name: "Trainee" };
+
+    const updateRolesQuery = {
+        $set: {
+            Name: "Associate Software Engineer"
+        }
+    };
+
+    // Updating Roles data
+    const updateRoles = await db.collection("Roles").updateMany(rolesQuery, updateRolesQuery);
+    console.log(updateRoles.modifiedCount + " Roles record(s) updated successfully!");
+
+
+
+
+
+
+    /* Deletion */
+    let rolesQuery = { Name: "Senior Software Developer" };
+
+    const deleteRoles = await db.collection("Roles").deleteMany(rolesQuery);
+    console.log(deleteRoles.deletedCount + " record(s) has been deleted!");
 }
 
 main()
